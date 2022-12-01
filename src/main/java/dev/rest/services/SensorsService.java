@@ -51,4 +51,9 @@ public class SensorsService {
         sensorsRepository.deleteById(id);
     }
 
+    public Optional<Sensor> findByName(Sensor sensor){
+
+        return sensorsRepository.findByName(sensor.getName());
+    }
+
 }
