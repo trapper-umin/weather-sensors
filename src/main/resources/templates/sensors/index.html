@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>Index</title>
 </head>
 <body>
-
+<div th:each="sensor : ${sensors}" th:text="${sensor.getName()}"></div>
 </body>
 </html>

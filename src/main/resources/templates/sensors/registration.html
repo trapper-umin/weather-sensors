@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sensor registration</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/sensors/registration}" th:object="${sensor}">
+  <label for="name">Enter sensor name</label>
+  <input type="text" th:field="*{name}" id="name">
+  <input type="submit" value="Create sensor">
+</form>
+
+</body>
+</html>

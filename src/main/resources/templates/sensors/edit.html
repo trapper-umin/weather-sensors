@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/sensors/edit/{id}(id=${sensor.getId()})}" th:object="${sensor}">
+  <label for="name">Enter new sensor name</label>
+  <input type="text" th:field="*{name}" id="name">
+  <input type="submit" value="Update">
+</form>
+
+</body>
+</html>
