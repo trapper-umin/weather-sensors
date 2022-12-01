@@ -3,18 +3,24 @@ package dev.rest.controllers;
 
 import dev.rest.models.Sensor;
 import dev.rest.services.SensorsService;
+import dev.rest.util.SensorValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/sensors")
 public class SensorsController {
 
     private final SensorsService sensorsService;
+    private final SensorValidator sensorValidator;
 
-    public SensorsController(SensorsService sensorsService){
+    public SensorsController(SensorsService sensorsService, SensorValidator sensorValidator){
         this.sensorsService=sensorsService;
+        this.sensorValidator=sensorValidator;
     }
 
     @GetMapping
@@ -39,7 +45,13 @@ public class SensorsController {
     }
 
     @PatchMapping("/edit/{id}")
-    public String update(@PathVariable("id") int id,@ModelAttribute("sensor") Sensor sensor){
+    public String update(@PathVariable("id") int id, @ModelAttribute("sensor") @Valid Sensor sensor, BindingResult bindingResult){
+
+        sensorValidator.validate(sensor,bindingResult);
+        if(bindingResult.hasErrors()){
+            return "sensors/edit";
+        }
+
         sensorsService.update(id,sensor);
 
         return "redirect:/sensors/{id}";
@@ -51,7 +63,13 @@ public class SensorsController {
     }
 
     @PostMapping("/registration")
-    public String registrationPost(@ModelAttribute("sensor") Sensor sensor){
+    public String registrationPost(@ModelAttribute("sensor") @Valid Sensor sensor, BindingResult bindingResult){
+
+        sensorValidator.validate(sensor,bindingResult);
+        if(bindingResult.hasErrors()){
+            return "sensors/registration";
+        }
+
         sensorsService.registration(sensor);
 
         return "redirect:/sensors";

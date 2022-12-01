@@ -1,6 +1,8 @@
 package dev.rest.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,6 +14,8 @@ public class Sensor {
     @Column(name = "sensor_id")
     private int id;
 
+    @NotEmpty(message = "Name should be not empty")
+    @Size(min = 4, max = 255, message = "Size name should be between 4 and 255")
     @Column(name = "name")
     private String name;
 
